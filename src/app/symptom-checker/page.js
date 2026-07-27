@@ -28,7 +28,7 @@ const URGENCY_STYLES = {
 };
 
 export default function SymptomCheckerPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
@@ -60,7 +60,7 @@ export default function SymptomCheckerPage() {
     setLoading(true);
     try {
       const res = await fetch('/api/symptom-checker', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, language }),
       });
       const data = await res.json();
       setResults(data);

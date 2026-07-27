@@ -23,10 +23,23 @@ const SUGGESTIONS = [
   'What foods are good for heart health?',
 ];
 
-const INITIAL_MESSAGE = {
+const getInitialMessage = (isTa) => ({
   id: 'welcome',
   role: 'ai',
-  content: `**Hello! I'm CuraAI** 👋 — your intelligent health companion powered by Google Gemini.
+  content: isTa ? `**வணக்கம்! நான் CuraAI** 👋 — Google Gemini இயக்கப்படும் உங்கள் AI சுகாதார தோழன்.
+
+நான் உங்களுக்கு உதவக்கூடிய பகுதிகள்:
+- 🩺 **அறிகுறி பகுப்பாய்வு** மற்றும் சுகாதார வழிகாட்டுதல்
+- 📊 **மருத்துவ அறிக்கைகளை எளிய மொழியில் விளக்குதல்**  
+- 💊 **மருந்து தகவல்கள்** மற்றும் எச்சரிக்கைகள்
+- 🧘 **மனநல ஆரோக்கிய குறிப்புகள்**
+- 🚨 **அவசரகால வழிகாட்டுதல்**
+
+நான் **ஆங்கிலம்** மற்றும் **தமிழ்** இரண்டையும் ஆதரிக்கிறேன்!
+
+> ⚠️ *கல்வி தகவல் மட்டுமே — மருத்துவ ஆலோசனைகளுக்கு உரிமம் பெற்ற மருத்துவரை அணுகவும்.*
+
+இன்று உங்களுக்கு நான் எப்படி உதவட்டும்?` : `**Hello! I'm CuraAI** 👋 — your intelligent health companion powered by Google Gemini.
 
 I can help you with:
 - 🩺 **Symptom analysis** and health guidance
@@ -41,15 +54,15 @@ I support both **English** and **தமிழ்** — just type in your preferr
 
 How can I help you today?`,
   timestamp: new Date(),
-};
+});
 
 function formatTime(date) {
   return new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit' }).format(date);
 }
 
 export default function AIAssistantPage() {
-  const { t } = useLanguage();
-  const [chats, setChats] = useState([{ id: 'chat-1', title: t('chatbot.newConversation', 'New Conversation'), messages: [INITIAL_MESSAGE], timestamp: new Date() }]);
+  const { t, language, isTamil } = useLanguage();
+  const [chats, setChats] = useState([{ id: 'chat-1', title: t('chatbot.newConversation', 'New Conversation'), messages: [getInitialMessage(isTamil)], timestamp: new Date() }]);
   const [activeChatId, setActiveChatId] = useState('chat-1');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -68,7 +81,7 @@ export default function AIAssistantPage() {
 
   const newChat = () => {
     const id = `chat-${Date.now()}`;
-    setChats(prev => [{ id, title: t('chatbot.newConversation', 'New Conversation'), messages: [INITIAL_MESSAGE], timestamp: new Date() }, ...prev]);
+    setChats(prev => [{ id, title: t('chatbot.newConversation', 'New Conversation'), messages: [getInitialMessage(isTamil)], timestamp: new Date() }, ...prev]);
     setActiveChatId(id);
   };
 
@@ -100,7 +113,7 @@ export default function AIAssistantPage() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({ messages: apiMessages, language }),
       });
       const data = await res.json();
       const aiMsg = {
