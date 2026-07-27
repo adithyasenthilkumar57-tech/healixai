@@ -10,6 +10,11 @@
   padding: 0;
 }
 
+:root {
+  --font-poppins: 'Calibri', 'Carlito', 'Candara', 'Segoe UI', system-ui, sans-serif;
+  --font-inter: 'Calibri', 'Carlito', 'Candara', 'Segoe UI', system-ui, sans-serif;
+}
+
 /* ─── Dark Theme (default) ───────────────────────── */
 :root,
 [data-theme="dark"],

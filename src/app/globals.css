@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+:root {
+  --font-poppins: 'Calibri', 'Carlito', 'Candara', 'Segoe UI', system-ui, sans-serif;
+  --font-inter: 'Calibri', 'Carlito', 'Candara', 'Segoe UI', system-ui, sans-serif;
+}
+
 /* ─── Dark Theme (default) ───────────────────────── */
 :root,
 [data-theme="dark"],
@@ -98,7 +103,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Calibri', 'Carlito', 'Candara', 'Segoe UI', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
@@ -109,7 +114,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: 'Calibri', 'Carlito', 'Segoe UI', sans-serif;
   font-weight: 700;
   line-height: 1.2;
   color: var(--text-primary);
