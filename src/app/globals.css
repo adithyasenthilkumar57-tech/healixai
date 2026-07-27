@@ -5,45 +5,49 @@
 :root,
 [data-theme="dark"],
 .dark {
-  --bg-primary:      #040711;
-  --bg-secondary:    #0a0f22;
-  --bg-tertiary:     #10172e;
-  --bg-card:         #151f3b;
-  --bg-glass:        rgba(21, 31, 59, 0.85);
-  --bg-glass-border: rgba(99, 102, 241, 0.18);
+  /* Exact Color Combination Swatch (#522377, #361958, #080B38, #133155, #254D70) */
+  --bg-primary:      #080b38;
+  --bg-secondary:    #0e1248;
+  --bg-tertiary:     #131a55;
+  --bg-card:         #182361;
+  --bg-glass:        rgba(24, 35, 97, 0.85);
+  --bg-glass-border: rgba(130, 75, 185, 0.25);
 
-  --text-primary:    #f1f5f9;
-  --text-secondary:  #94a3b8;
-  --text-tertiary:   #64748b;
-  --text-inverse:    #040711;
+  --text-primary:    #f3f4ff;
+  --text-secondary:  #a5b4fc;
+  --text-tertiary:   #818cf8;
+  --text-inverse:    #080b38;
 
-  --border-primary:   rgba(255, 255, 255, 0.08);
-  --border-secondary: rgba(255, 255, 255, 0.04);
+  --border-primary:   rgba(130, 75, 185, 0.22);
+  --border-secondary: rgba(37, 77, 112, 0.3);
 
-  /* Brand Colors */
-  --accent-blue:    #3b82f6;
-  --accent-purple:  #8b5cf6;
-  --accent-cyan:    #06b6d4;
+  /* Swatch Brand Palette */
+  --accent-magenta: #522377;
+  --accent-purple:  #361958;
+  --accent-indigo:  #080b38;
+  --accent-navy:    #133155;
+  --accent-blue:    #254d70;
+  --accent-cyan:    #38bdf8;
   --accent-emerald: #10b981;
   --accent-rose:    #f43f5e;
-  --accent-amber:   #f59e0b;
+  --accent-amber:   #fbbf24;
 
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
-  --gradient-hero:    linear-gradient(135deg, #09132e 0%, #1e1b4b 50%, #06394c 100%);
-  --gradient-card:    linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.12) 100%);
+  --gradient-primary: linear-gradient(135deg, #522377 0%, #361958 35%, #133155 70%, #254d70 100%);
+  --gradient-hero:    linear-gradient(135deg, #080b38 0%, #361958 45%, #133155 100%);
+  --gradient-card:    linear-gradient(135deg, rgba(82,35,119,0.22) 0%, rgba(19,49,85,0.22) 100%);
 
   /* Shadows & Glows */
-  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5);
-  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.6);
-  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.7);
-  --shadow-xl:   0 20px 60px rgba(0, 0, 0, 0.8);
-  --shadow-glow: 0 0 32px rgba(59, 130, 246, 0.3);
-  --shadow-glow-purple: 0 0 32px rgba(139, 92, 246, 0.25);
+  --shadow-sm:   0 1px 3px rgba(8, 11, 56, 0.5);
+  --shadow-md:   0 4px 16px rgba(8, 11, 56, 0.6);
+  --shadow-lg:   0 8px 32px rgba(8, 11, 56, 0.75);
+  --shadow-xl:   0 20px 60px rgba(8, 11, 56, 0.85);
+  --shadow-glow: 0 0 36px rgba(82, 35, 119, 0.4);
+  --shadow-glow-purple: 0 0 36px rgba(54, 25, 88, 0.45);
 
   /* Input Variables */
-  --input-bg:     rgba(255, 255, 255, 0.05);
-  --input-border: rgba(255, 255, 255, 0.12);
-  --input-focus:  rgba(59, 130, 246, 0.5);
+  --input-bg:     rgba(82, 35, 119, 0.12);
+  --input-border: rgba(130, 75, 185, 0.25);
+  --input-focus:  rgba(56, 189, 248, 0.5);
 }
 
 /* ─── Light Theme ─────────────────────────────────── */
