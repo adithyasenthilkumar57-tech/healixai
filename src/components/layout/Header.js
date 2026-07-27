@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sun, Moon, Globe, Bell, User, ChevronDown, Menu, X,
   Heart, Activity, Stethoscope, AlertTriangle, Building2,
-  LayoutDashboard, LogOut, Settings, Shield, MessageSquare
+  LayoutDashboard, LogOut, Settings, Shield, MessageSquare, Languages
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
@@ -132,14 +132,19 @@ export default function Header() {
 
             {/* Right Controls */}
             <div className="flex items-center gap-2">
-              {/* Direct One-Click Tamil Language Toggle Button */}
+              {/* Unique Logo Language Switcher Button */}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-500/10 border border-blue-500/25 hover:bg-blue-500/20 text-blue-400 font-bold text-xs transition-all shadow-sm"
-                title="Switch Language to Tamil / English"
+                className="relative group flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-teal-600/20 border border-blue-400/40 hover:border-blue-400/80 shadow-[0_0_12px_rgba(59,130,246,0.25)] transition-all duration-300 active:scale-95"
+                title="Switch Language / மொழியை மாற்றவும்"
               >
-                <Globe className="w-3.5 h-3.5" />
-                <span>{language === 'en' ? '🇮🇳 தமிழ்' : '🇬🇧 English'}</span>
+                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-[10px] font-black text-white shadow-sm flex-shrink-0">
+                  {language === 'en' ? 'த' : 'A'}
+                </div>
+                <Languages className="w-3.5 h-3.5 text-blue-400 group-hover:rotate-12 transition-transform" />
+                <span className="font-bold text-xs bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                  {language === 'en' ? 'தமிழ்' : 'English'}
+                </span>
               </button>
 
               {/* Language Dropdown */}

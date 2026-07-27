@@ -7,6 +7,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 const RISK_FACTORS = [
   { key: 'bmi', label: 'BMI', value: '', type: 'number', placeholder: '22.4' },
@@ -73,6 +74,7 @@ function RiskGauge({ value, color }) {
 }
 
 export default function RiskPredictionPage() {
+  const { t } = useLanguage();
   const [form, setForm] = useState(Object.fromEntries(RISK_FACTORS.map(r => [r.key, r.value])));
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -93,11 +95,11 @@ export default function RiskPredictionPage() {
         <div className="py-10" style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.08), rgba(239,68,68,0.04))' }}>
           <div className="container text-center">
             <span className="badge badge-yellow mb-4 inline-flex"><TrendingUp className="w-3 h-3" /> AI Prediction</span>
-            <h1 className="text-4xl font-black mb-3" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
-              Disease Risk Prediction
+            <h1 className="text-3xl font-black mb-1" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
+              {t('riskPrediction.title', 'AI Risk Prediction Engine')}
             </h1>
             <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-              AI-powered analysis of your lifestyle and health data to predict your 10-year disease risk.
+              {t('riskPrediction.subtitle', 'Predict risk for Diabetes, Heart Disease, and Hypertension using ML algorithms.')}
             </p>
           </div>
         </div>

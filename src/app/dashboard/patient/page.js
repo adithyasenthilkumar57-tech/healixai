@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import {
   LineChart, Line, AreaChart, Area, BarChart, Bar,
   XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell
@@ -138,8 +139,10 @@ function HealthScoreRing({ score = 87 }) {
 
 /* ── Main Dashboard ── */
 export default function PatientDashboard() {
-  const { user } = useAuth();
+  const { t } = useLanguage();
+  const { user, logout } = useAuth();
   const [medicines, setMedicines] = useState(MEDICINES);
+  const [activeTab, setActiveTab] = useState('overview');
   const toggleMed = (id) => setMedicines(m => m.map(med => med.id === id ? { ...med, taken: !med.taken } : med));
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
@@ -170,24 +173,19 @@ export default function PatientDashboard() {
         {/* Main Content */}
         <main className="flex-1 p-6 overflow-x-hidden">
           {/* Header Row */}
-          <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
+          <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
             <div>
-              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>{greeting} 👋</p>
-              <h1 className="text-2xl font-black" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-poppins)' }}>
-                {user?.firstName || 'Patient'}&apos;s Dashboard
+              <h1 className="text-3xl font-black mb-1" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
+                {t('dashboard.patient.greeting', 'Good Morning')}, {user?.firstName || 'Priya'} 👋
               </h1>
-              <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>
-                Last updated: {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-              </p>
+              <p style={{ color: 'var(--text-secondary)' }}>{t('dashboard.patient.title', 'Here is your daily health summary & recommendations.')}</p>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/emergency" className="btn btn-danger btn-sm">
-                <AlertTriangle className="w-4 h-4" />
-                Emergency SOS
+              <Link href="/emergency" className="btn btn-sm text-red-400 border border-red-500/30 bg-red-500/10 hover:bg-red-500/20">
+                <AlertTriangle className="w-4 h-4" /> {t('dashboard.patient.emergency', 'Emergency SOS')}
               </Link>
               <Link href="/ai-assistant" className="btn btn-primary btn-sm">
-                <MessageSquare className="w-4 h-4" />
-                Chat CuraAI
+                <MessageSquare className="w-4 h-4" /> {t('dashboard.patient.chatCura', 'Talk to CuraAI')}
               </Link>
             </div>
           </div>

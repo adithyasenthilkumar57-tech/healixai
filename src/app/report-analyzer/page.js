@@ -6,6 +6,7 @@ import { Upload, FileText, Brain, AlertTriangle, CheckCircle, TrendingUp, Trendi
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 const MOCK_REPORT = {
   title: 'Complete Blood Count (CBC)',
@@ -43,6 +44,8 @@ const STATUS_STYLES = {
 };
 
 export default function ReportAnalyzerPage() {
+  const { t } = useLanguage();
+  const [analyzed, setAnalyzed] = useState(false);
   const [file, setFile] = useState(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [report, setReport] = useState(null);
@@ -72,12 +75,10 @@ export default function ReportAnalyzerPage() {
         <div className="py-10" style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04))' }}>
           <div className="container text-center">
             <span className="badge badge-cyan mb-4 inline-flex"><Brain className="w-3 h-3" /> AI-Powered OCR</span>
-            <h1 className="text-4xl font-black mb-3" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
-              Medical Report Analyzer
+            <h1 className="text-3xl font-black mb-1" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
+              {t('reportAnalyzer.title', 'AI Medical Report Analyzer')}
             </h1>
-            <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-              Upload your lab reports or scan images. AI extracts values and explains them in simple language.
-            </p>
+            <p style={{ color: 'var(--text-secondary)' }}>{t('reportAnalyzer.subtitle', 'Upload your lab reports and scans. AI explains your results in plain language.')}</p>
           </div>
         </div>
 

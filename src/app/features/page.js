@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { useLanguage } from '@/context/LanguageContext';
 
 /* ─── Medical Purpose Categories & Details ──────────────────── */
 const MEDICAL_PURPOSES = [
@@ -241,6 +242,7 @@ const CATEGORIES = [
 ];
 
 export default function FeaturesPage() {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -267,7 +269,7 @@ export default function FeaturesPage() {
               className="badge badge-blue mb-4 inline-flex items-center gap-1.5"
             >
               <Zap className="w-3.5 h-3.5" />
-              HealixAI Capabilities & Medical Purpose
+              {t('features_page.badge', 'HealixAI Capabilities & Medical Purpose')}
             </motion.div>
 
             <motion.h1
@@ -277,8 +279,8 @@ export default function FeaturesPage() {
               className="text-4xl md:text-6xl font-black mb-6 tracking-tight"
               style={{ fontFamily: 'var(--font-poppins)' }}
             >
-              Intelligent Features Built for <br />
-              <span className="gradient-text">Clinical Clarity & Medical Purpose</span>
+              {t('features_page.heroTitle', 'Intelligent Features Built for')} <br />
+              <span className="gradient-text">{t('features_page.heroHighlight', 'Clinical Clarity & Medical Purpose')}</span>
             </motion.h1>
 
             <motion.p
@@ -287,7 +289,7 @@ export default function FeaturesPage() {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed mb-8"
             >
-              Discover how HealixAI leverages artificial intelligence to empower patients, streamline clinical triage, improve medication adherence, and ensure emergency readiness in English and Tamil.
+              {t('features_page.subtitle', 'Discover how HealixAI leverages artificial intelligence to empower patients, streamline clinical triage, improve medication adherence, and ensure emergency readiness in English and Tamil.')}
             </motion.p>
 
             <motion.div
