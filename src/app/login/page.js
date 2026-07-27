@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Eye, EyeOff, Heart, Mail, Lock, AlertCircle, Stethoscope, Building2, Shield, User } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 const schema = z.object({
   email: z.string().email('Enter a valid email address'),
@@ -18,19 +19,20 @@ const schema = z.object({
   remember: z.boolean().optional(),
 });
 
-const ROLES = [
-  { value: 'patient', label: 'Patient', icon: User, color: '#3b82f6' },
-  { value: 'doctor', label: 'Doctor', icon: Stethoscope, color: '#06b6d4' },
-  { value: 'hospital', label: 'Hospital', icon: Building2, color: '#14b8a6' },
-  { value: 'admin', label: 'Admin', icon: Shield, color: '#8b5cf6' },
-];
-
 export default function LoginPage() {
+  const { t } = useLanguage();
   const [showPass, setShowPass] = useState(false);
   const [selectedRole, setSelectedRole] = useState('patient');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
+
+  const ROLES = [
+    { value: 'patient', label: t('auth.login.signInAs', 'Sign in as') === 'Sign in as' ? 'Patient' : t('auth.register.patient', 'Patient'), icon: User, color: '#3b82f6' },
+    { value: 'doctor', label: 'Doctor', icon: Stethoscope, color: '#06b6d4' },
+    { value: 'hospital', label: 'Hospital', icon: Building2, color: '#14b8a6' },
+    { value: 'admin', label: 'Admin', icon: Shield, color: '#8b5cf6' },
+  ];
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
@@ -67,10 +69,10 @@ export default function LoginPage() {
           </Link>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
             <h1 className="text-5xl font-black text-white mb-6 leading-tight">
-              Your Health,<br />Our Priority
+              {t('auth.login.yourHealth', 'Your Health,')}<br />{t('auth.login.ourPriority', 'Our Priority')}
             </h1>
             <p className="text-blue-100 text-lg leading-relaxed mb-8">
-              Sign in to access your personalized health dashboard, AI-powered chatbot, and complete medical toolkit.
+              {t('auth.login.loginBenefits', 'Sign in to access your personalized health dashboard, AI-powered chatbot, and complete medical toolkit.')}
             </p>
             {[
               '✓ AI-powered symptom analysis',
@@ -93,8 +95,8 @@ export default function LoginPage() {
                 <Heart className="w-4 h-4 text-white fill-red-300" />
               </div>
               <div>
-                <p className="text-white text-xs font-semibold">Health Score</p>
-                <p className="text-blue-200 text-xs">Based on your vitals</p>
+                <p className="text-white text-xs font-semibold">{t('auth.login.healthScore', 'Health Score')}</p>
+                <p className="text-blue-200 text-xs">{t('auth.login.basedOnVitals', 'Based on your vitals')}</p>
               </div>
               <div className="ml-auto">
                 <p className="text-3xl font-black text-white">87</p>
@@ -130,13 +132,13 @@ export default function LoginPage() {
           </Link>
 
           <h2 className="text-3xl font-black mb-2" style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-poppins)' }}>
-            Welcome Back
+            {t('auth.login.title', 'Welcome Back')}
           </h2>
-          <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>Sign in to your HealixAI account</p>
+          <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>{t('auth.login.subtitle', 'Sign in to your HealixAI account')}</p>
 
           {/* Role Selection */}
           <div className="mb-6">
-            <p className="text-xs font-semibold mb-3 uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>Sign in as</p>
+            <p className="text-xs font-semibold mb-3 uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>{t('auth.login.signInAs', 'Sign in as')}</p>
             <div className="grid grid-cols-4 gap-2">
               {ROLES.map(({ value, label, icon: Icon, color }) => (
                 <button
@@ -161,7 +163,7 @@ export default function LoginPage() {
             {/* Email */}
             <div>
               <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>
-                Email Address
+                {t('auth.login.email', 'Email Address')}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-tertiary)' }} />
@@ -183,9 +185,9 @@ export default function LoginPage() {
             {/* Password */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Password</label>
+                <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{t('auth.login.password', 'Password')}</label>
                 <Link href="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
-                  Forgot password?
+                  {t('auth.login.forgotPassword', 'Forgot password?')}
                 </Link>
               </div>
               <div className="relative">
@@ -216,23 +218,23 @@ export default function LoginPage() {
             {/* Remember */}
             <div className="flex items-center gap-2">
               <input {...register('remember')} type="checkbox" id="remember" className="w-4 h-4 rounded" style={{ accentColor: '#3b82f6' }} />
-              <label htmlFor="remember" className="text-sm" style={{ color: 'var(--text-secondary)' }}>Remember me</label>
+              <label htmlFor="remember" className="text-sm" style={{ color: 'var(--text-secondary)' }}>{t('auth.login.rememberMe', 'Remember me')}</label>
             </div>
 
             <button type="submit" disabled={loading} className="btn btn-primary btn-md w-full">
               {loading ? (
                 <span className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Signing in...
+                  {t('auth.login.signingIn', 'Signing in...')}
                 </span>
-              ) : 'Sign In'}
+              ) : t('auth.login.button', 'Sign In')}
             </button>
           </form>
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
             <div className="flex-1 h-px" style={{ background: 'var(--border-primary)' }} />
-            <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>Or continue with</span>
+            <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{t('auth.login.orContinue', 'Or continue with')}</span>
             <div className="flex-1 h-px" style={{ background: 'var(--border-primary)' }} />
           </div>
 
@@ -255,17 +257,17 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-sm mt-6" style={{ color: 'var(--text-secondary)' }}>
-            Don't have an account?{' '}
+            {t('auth.login.noAccount', "Don't have an account?")}{' '}
             <Link href="/register" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-              Sign Up Free
+              {t('auth.login.signUpFree', 'Sign Up Free')}
             </Link>
           </p>
 
           {/* Demo credentials hint */}
           <div className="mt-4 p-4 rounded-xl" style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.15)' }}>
-            <p className="text-xs font-semibold text-blue-400 mb-1">Demo Mode</p>
+            <p className="text-xs font-semibold text-blue-400 mb-1">{t('auth.login.demoMode', 'Demo Mode')}</p>
             <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-              Enter any email + 6+ char password to log in as the selected role.
+              {t('auth.login.demoHint', 'Enter any email + 6+ char password to log in as the selected role.')}
               <br />Try: patient@healixai.com / demo123
             </p>
           </div>

@@ -9,6 +9,7 @@ import {
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DOCTORS = [
   { id: 1, name: 'Dr. Karthik Sundaram', specialty: 'Cardiologist', rating: 4.9, reviews: 312, fee: 800, available: ['9:00 AM', '10:30 AM', '2:00 PM', '4:30 PM'], avatar: 'KS', modes: ['in-person', 'video', 'call'] },
@@ -32,6 +33,7 @@ const PAST = [
 const MODE_ICONS = { video: Video, 'in-person': MapPin, call: Phone };
 
 export default function AppointmentsPage() {
+  const { t } = useLanguage();
   const [tab, setTab] = useState('upcoming');
   const [bookingDoctor, setBookingDoctor] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState('');
@@ -47,7 +49,7 @@ export default function AppointmentsPage() {
   });
 
   const bookAppointment = () => {
-    if (!selectedSlot || !selectedMode) { toast.error('Please select a time and consultation mode'); return; }
+    if (!selectedSlot || !selectedMode) { toast.error(t('appointments.selectTimeAndMode', 'Please select a time and consultation mode')); return; }
     toast.success(`Appointment booked with ${bookingDoctor.name} at ${selectedSlot} (${selectedMode})`);
     setBookingDoctor(null); setSelectedSlot(''); setSelectedMode('');
   };
@@ -58,8 +60,8 @@ export default function AppointmentsPage() {
       <main className="pt-16">
         <div className="py-8" style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04))' }}>
           <div className="container">
-            <h1 className="text-3xl font-black mb-1" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>Appointments</h1>
-            <p style={{ color: 'var(--text-secondary)' }}>Book and manage your consultations</p>
+            <h1 className="text-3xl font-black mb-1" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>{t('appointments.title', 'Appointments')}</h1>
+            <p style={{ color: 'var(--text-secondary)' }}>{t('appointments.subtitle', 'Book and manage your consultations')}</p>
           </div>
         </div>
 
@@ -67,9 +69,9 @@ export default function AppointmentsPage() {
           {/* My Appointments */}
           <div className="mb-10">
             <div className="flex gap-2 mb-4">
-              {['upcoming', 'past'].map(t => (
-                <button key={t} onClick={() => setTab(t)} className="btn btn-sm capitalize" style={{ background: tab === t ? '#3b82f6' : 'var(--bg-card)', color: tab === t ? 'white' : 'var(--text-secondary)', border: `1px solid ${tab === t ? '#3b82f6' : 'var(--border-primary)'}` }}>
-                  {t} {t === 'upcoming' ? `(${UPCOMING.length})` : `(${PAST.length})`}
+              {[{ key: 'upcoming', label: t('appointments.upcoming', 'Upcoming') }, { key: 'past', label: t('appointments.past', 'Past') }].map(tabItem => (
+                <button key={tabItem.key} onClick={() => setTab(tabItem.key)} className="btn btn-sm capitalize" style={{ background: tab === tabItem.key ? '#3b82f6' : 'var(--bg-card)', color: tab === tabItem.key ? 'white' : 'var(--text-secondary)', border: `1px solid ${tab === tabItem.key ? '#3b82f6' : 'var(--border-primary)'}` }}>
+                  {tabItem.label} {tabItem.key === 'upcoming' ? `(${UPCOMING.length})` : `(${PAST.length})`}
                 </button>
               ))}
             </div>
@@ -116,11 +118,11 @@ export default function AppointmentsPage() {
 
           {/* Book New Appointment */}
           <div>
-            <h2 className="text-xl font-black mb-4" style={{ color: 'var(--text-primary)' }}>Book New Appointment</h2>
+            <h2 className="text-xl font-black mb-4" style={{ color: 'var(--text-primary)' }}>{t('appointments.bookNew', 'Book New Appointment')}</h2>
             <div className="flex gap-3 mb-4 flex-wrap">
               <div className="relative flex-1 max-w-sm">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--text-tertiary)' }} />
-                <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search doctors..." className="input-base pl-10" />
+                <input value={search} onChange={e => setSearch(e.target.value)} placeholder={t('appointments.searchDoctors', 'Search doctors...')} className="input-base pl-10" />
               </div>
               <div className="flex gap-2 flex-wrap">
                 {specialties.slice(0, 5).map(s => (
@@ -152,7 +154,7 @@ export default function AppointmentsPage() {
                     {doc.modes.map(m => { const I = MODE_ICONS[m]; return <span key={m} className="badge badge-gray text-[10px] flex items-center gap-1"><I className="w-2.5 h-2.5" />{m}</span>; })}
                   </div>
                   <button onClick={() => { setBookingDoctor(doc); setSelectedSlot(''); setSelectedMode(''); }} className="btn btn-primary btn-sm w-full">
-                    Book Appointment
+                    {t('appointments.book', 'Book Appointment')}
                   </button>
                 </motion.div>
               ))}
@@ -167,7 +169,7 @@ export default function AppointmentsPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.5)' }}>
             <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="w-full max-w-md rounded-2xl p-6" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-primary)' }}>
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-lg font-black" style={{ color: 'var(--text-primary)' }}>Book Appointment</h3>
+                <h3 className="text-lg font-black" style={{ color: 'var(--text-primary)' }}>{t('appointments.book', 'Book Appointment')}</h3>
                 <button onClick={() => setBookingDoctor(null)}><X className="w-5 h-5" style={{ color: 'var(--text-tertiary)' }} /></button>
               </div>
               <div className="flex items-center gap-3 mb-5 p-3 rounded-xl" style={{ background: 'var(--bg-secondary)' }}>
@@ -180,7 +182,7 @@ export default function AppointmentsPage() {
                 </div>
               </div>
               <div className="mb-4">
-                <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text-secondary)' }}>Select Time Slot (Today)</p>
+                <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text-secondary)' }}>{t('appointments.selectTimeSlot', 'Select Time Slot (Today)')}</p>
                 <div className="flex flex-wrap gap-2">
                   {bookingDoctor.available.map(slot => (
                     <button key={slot} onClick={() => setSelectedSlot(slot)} className="btn btn-sm" style={{ background: selectedSlot === slot ? '#3b82f6' : 'var(--bg-tertiary)', color: selectedSlot === slot ? 'white' : 'var(--text-secondary)', border: `1px solid ${selectedSlot === slot ? '#3b82f6' : 'var(--border-primary)'}` }}>
@@ -190,7 +192,7 @@ export default function AppointmentsPage() {
                 </div>
               </div>
               <div className="mb-5">
-                <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text-secondary)' }}>Consultation Mode</p>
+                <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text-secondary)' }}>{t('appointments.consultationMode', 'Consultation Mode')}</p>
                 <div className="flex gap-2">
                   {bookingDoctor.modes.map(m => { const I = MODE_ICONS[m]; return (
                     <button key={m} onClick={() => setSelectedMode(m)} className="btn btn-sm flex-1 capitalize" style={{ background: selectedMode === m ? '#3b82f6' : 'var(--bg-tertiary)', color: selectedMode === m ? 'white' : 'var(--text-secondary)', border: `1px solid ${selectedMode === m ? '#3b82f6' : 'var(--border-primary)'}` }}>
@@ -200,9 +202,9 @@ export default function AppointmentsPage() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <button onClick={() => setBookingDoctor(null)} className="btn btn-secondary btn-md flex-1">Cancel</button>
+                <button onClick={() => setBookingDoctor(null)} className="btn btn-secondary btn-md flex-1">{t('appointments.cancel', 'Cancel')}</button>
                 <button onClick={bookAppointment} className="btn btn-primary btn-md flex-1">
-                  <Check className="w-4 h-4" /> Confirm Booking
+                  <Check className="w-4 h-4" /> {t('appointments.confirmBooking', 'Confirm Booking')}
                 </button>
               </div>
             </motion.div>

@@ -10,15 +10,7 @@ import {
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import toast from 'react-hot-toast';
-
-const STEPS = [
-  { id: 0, label: 'Basic Info', icon: User },
-  { id: 1, label: 'Vitals', icon: Activity },
-  { id: 2, label: 'Symptoms', icon: Stethoscope },
-  { id: 3, label: 'Lifestyle', icon: Coffee },
-  { id: 4, label: 'History', icon: FileText },
-  { id: 5, label: 'AI Results', icon: Brain },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 const COMMON_SYMPTOMS = [
   'Headache', 'Fever', 'Cough', 'Fatigue', 'Nausea', 'Vomiting', 'Dizziness', 'Chest Pain',
@@ -36,6 +28,7 @@ const URGENCY_STYLES = {
 };
 
 export default function SymptomCheckerPage() {
+  const { t } = useLanguage();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
@@ -48,13 +41,22 @@ export default function SymptomCheckerPage() {
   });
   const [symptomSearch, setSymptomSearch] = useState('');
 
+  const STEPS = [
+    { id: 0, label: t('symptomChecker.steps.basicInfo', 'Basic Info'), icon: User },
+    { id: 1, label: t('symptomChecker.steps.vitals', 'Vitals'), icon: Activity },
+    { id: 2, label: t('symptomChecker.steps.symptoms', 'Symptoms'), icon: Stethoscope },
+    { id: 3, label: t('symptomChecker.steps.lifestyle', 'Lifestyle'), icon: Coffee },
+    { id: 4, label: t('symptomChecker.steps.history', 'History'), icon: FileText },
+    { id: 5, label: t('symptomChecker.steps.results', 'AI Results'), icon: Brain },
+  ];
+
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
   const toggleSymptom = (s) => set('symptoms', form.symptoms.includes(s) ? form.symptoms.filter(x => x !== s) : [...form.symptoms, s]);
 
   const filteredSymptoms = COMMON_SYMPTOMS.filter(s => s.toLowerCase().includes(symptomSearch.toLowerCase()));
 
   const analyze = async () => {
-    if (form.symptoms.length === 0) { toast.error('Please select at least one symptom'); return; }
+    if (form.symptoms.length === 0) { toast.error(t('symptomChecker.selectSymptom', 'Please select at least one symptom')); return; }
     setLoading(true);
     try {
       const res = await fetch('/api/symptom-checker', {
@@ -63,9 +65,18 @@ export default function SymptomCheckerPage() {
       const data = await res.json();
       setResults(data);
       setStep(5);
-    } catch { toast.error('Analysis failed. Please try again.'); }
+    } catch { toast.error(t('common.error', 'Analysis failed. Please try again.')); }
     finally { setLoading(false); }
   };
+
+  const DURATION_OPTIONS = [
+    { value: 'Less than 24 hours', label: t('symptomChecker.duration.lessThan24', 'Less than 24 hours') },
+    { value: '1-3 days', label: t('symptomChecker.duration.oneTo3Days', '1-3 days') },
+    { value: '3-7 days', label: t('symptomChecker.duration.threeTo7Days', '3-7 days') },
+    { value: '1-2 weeks', label: t('symptomChecker.duration.oneToTwoWeeks', '1-2 weeks') },
+    { value: '2-4 weeks', label: t('symptomChecker.duration.twoToFourWeeks', '2-4 weeks') },
+    { value: 'More than 1 month', label: t('symptomChecker.duration.moreThanMonth', 'More than 1 month') },
+  ];
 
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
@@ -74,16 +85,16 @@ export default function SymptomCheckerPage() {
         {/* Hero */}
         <div className="py-12" style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04))' }}>
           <div className="container text-center">
-            <span className="badge badge-blue mb-4 inline-flex"><Brain className="w-3 h-3" /> AI-Powered</span>
+            <span className="badge badge-blue mb-4 inline-flex"><Brain className="w-3 h-3" /> {t('symptomChecker.badge', 'AI-Powered')}</span>
             <h1 className="text-4xl font-black mb-3" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
-              AI Symptom Checker
+              {t('symptomChecker.title', 'AI Symptom Checker')}
             </h1>
             <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-              Describe your symptoms for an intelligent health assessment. Powered by Google Gemini.
+              {t('symptomChecker.subtitle', 'Describe your symptoms for an intelligent health assessment.')} {t('symptomChecker.poweredBy', 'Powered by Google Gemini.')}
             </p>
             <div className="mt-4 p-3 rounded-xl inline-flex items-center gap-2" style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)' }}>
               <AlertTriangle className="w-4 h-4 text-yellow-400" />
-              <p className="text-xs text-yellow-400 font-medium">Educational use only — not a diagnosis. Always consult a doctor.</p>
+              <p className="text-xs text-yellow-400 font-medium">{t('symptomChecker.disclaimer', 'Educational use only — not a diagnosis. Always consult a doctor.')}</p>
             </div>
           </div>
         </div>
@@ -123,26 +134,26 @@ export default function SymptomCheckerPage() {
               {/* Step 0: Basic Info */}
               {step === 0 && (
                 <motion.div key="basic" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>Basic Information</h2>
+                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.basicInformation', 'Basic Information')}</h2>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Age *</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.age', 'Age')} *</label>
                       <input type="number" value={form.age} onChange={e => set('age', e.target.value)} placeholder="e.g. 35" className="input-base" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Gender *</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.gender', 'Gender')} *</label>
                       <select value={form.gender} onChange={e => set('gender', e.target.value)} className="input-base">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other / Prefer not to say</option>
+                        <option value="male">{t('symptomChecker.fields.male', 'Male')}</option>
+                        <option value="female">{t('symptomChecker.fields.female', 'Female')}</option>
+                        <option value="other">{t('symptomChecker.fields.other', 'Other / Prefer not to say')}</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Height (cm)</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.height', 'Height (cm)')}</label>
                       <input type="number" value={form.height} onChange={e => set('height', e.target.value)} placeholder="e.g. 165" className="input-base" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Weight (kg)</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.weight', 'Weight (kg)')}</label>
                       <input type="number" value={form.weight} onChange={e => set('weight', e.target.value)} placeholder="e.g. 65" className="input-base" />
                     </div>
                   </div>
@@ -152,37 +163,37 @@ export default function SymptomCheckerPage() {
               {/* Step 1: Vitals */}
               {step === 1 && (
                 <motion.div key="vitals" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>Current Vitals</h2>
+                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.currentVitals', 'Current Vitals')}</h2>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Blood Pressure (mmHg)</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.bloodPressure', 'Blood Pressure (mmHg)')}</label>
                       <input value={form.bloodPressure} onChange={e => set('bloodPressure', e.target.value)} placeholder="e.g. 120/80" className="input-base" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Blood Sugar (mg/dL)</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.sugarLevel', 'Blood Sugar (mg/dL)')}</label>
                       <input type="number" value={form.sugarLevel} onChange={e => set('sugarLevel', e.target.value)} placeholder="e.g. 100" className="input-base" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Pulse (bpm)</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.pulse', 'Pulse (bpm)')}</label>
                       <input type="number" value={form.pulse} onChange={e => set('pulse', e.target.value)} placeholder="e.g. 72" className="input-base" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Duration of Symptoms</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.duration', 'Duration of Symptoms')}</label>
                       <select value={form.duration} onChange={e => set('duration', e.target.value)} className="input-base">
-                        <option value="">Select duration</option>
-                        {['Less than 24 hours', '1-3 days', '3-7 days', '1-2 weeks', '2-4 weeks', 'More than 1 month'].map(d => <option key={d} value={d}>{d}</option>)}
+                        <option value="">{t('symptomChecker.fields.selectDuration', 'Select duration')}</option>
+                        {DURATION_OPTIONS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
                       </select>
                     </div>
                   </div>
                   <div className="mt-4">
-                    <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Pain Level: {form.painLevel}/10</label>
+                    <label className="block text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.painLevel', 'Pain Level')}: {form.painLevel}/10</label>
                     <input
                       type="range" min="0" max="10" value={form.painLevel}
                       onChange={e => set('painLevel', e.target.value)}
                       className="w-full" style={{ accentColor: '#3b82f6' }}
                     />
                     <div className="flex justify-between text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
-                      <span>No pain</span><span>Moderate</span><span>Severe</span>
+                      <span>{t('symptomChecker.fields.noPain', 'No pain')}</span><span>{t('symptomChecker.fields.moderate', 'Moderate')}</span><span>{t('symptomChecker.fields.severe', 'Severe')}</span>
                     </div>
                   </div>
                 </motion.div>
@@ -191,12 +202,12 @@ export default function SymptomCheckerPage() {
               {/* Step 2: Symptoms */}
               {step === 2 && (
                 <motion.div key="symptoms" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                  <h2 className="text-xl font-black mb-2" style={{ color: 'var(--text-primary)' }}>Your Symptoms</h2>
-                  <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>Select all that apply. Selected: {form.symptoms.length}</p>
+                  <h2 className="text-xl font-black mb-2" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.yourSymptoms', 'Your Symptoms')}</h2>
+                  <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.selectAll', 'Select all that apply. Selected:')} {form.symptoms.length}</p>
                   <input
                     value={symptomSearch}
                     onChange={e => setSymptomSearch(e.target.value)}
-                    placeholder="Search symptoms..."
+                    placeholder={t('symptomChecker.searchSymptoms', 'Search symptoms...')}
                     className="input-base mb-4"
                   />
                   <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto pr-1">
@@ -212,7 +223,7 @@ export default function SymptomCheckerPage() {
                         }}
                       >
                         {form.symptoms.includes(symptom) && <CheckCircle className="w-3 h-3" />}
-                        {symptom}
+                        {t(`symptomChecker.symptoms.${symptom}`, symptom)}
                       </button>
                     ))}
                   </div>
@@ -222,11 +233,11 @@ export default function SymptomCheckerPage() {
               {/* Step 3: Lifestyle */}
               {step === 3 && (
                 <motion.div key="lifestyle" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>Lifestyle Factors</h2>
+                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.lifestyleFactors', 'Lifestyle Factors')}</h2>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { key: 'smoking', label: 'Smoking', options: ['no', 'occasionally', 'regularly', 'ex-smoker'] },
-                      { key: 'alcohol', label: 'Alcohol Consumption', options: ['no', 'occasionally', 'weekly', 'daily'] },
+                      { key: 'smoking', label: t('symptomChecker.fields.smoking', 'Smoking'), options: ['no', 'occasionally', 'regularly', 'ex-smoker'] },
+                      { key: 'alcohol', label: t('symptomChecker.fields.alcohol', 'Alcohol Consumption'), options: ['no', 'occasionally', 'weekly', 'daily'] },
                       { key: 'stressLevel', label: 'Stress Level', options: ['low', 'moderate', 'high', 'very high'] },
                     ].map(({ key, label, options }) => (
                       <div key={key}>
@@ -237,7 +248,7 @@ export default function SymptomCheckerPage() {
                       </div>
                     ))}
                     <div>
-                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Sleep Hours/Night</label>
+                      <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>{t('symptomChecker.fields.sleepHours', 'Sleep Hours/Night')}</label>
                       <select value={form.sleepHours} onChange={e => set('sleepHours', e.target.value)} className="input-base">
                         {['<4', '4-5', '5-6', '6-7', '7-8', '8-9', '>9'].map(h => <option key={h} value={h}>{h} hours</option>)}
                       </select>
@@ -249,17 +260,17 @@ export default function SymptomCheckerPage() {
               {/* Step 4: Medical History */}
               {step === 4 && (
                 <motion.div key="history" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>Medical History</h2>
+                  <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.medicalHistory', 'Medical History')}</h2>
                   <div className="space-y-4">
                     {[
-                      { key: 'pastConditions', label: 'Past Medical Conditions', placeholder: 'e.g. Hypertension, Diabetes...' },
-                      { key: 'currentMedications', label: 'Current Medications', placeholder: 'e.g. Metformin 500mg, Amlodipine 5mg...' },
-                      { key: 'familyHistory', label: 'Family Medical History', placeholder: 'e.g. Father has heart disease, Mother has diabetes...' },
-                      { key: 'allergies', label: 'Known Allergies', placeholder: 'e.g. Penicillin, NSAIDs, Pollen...' },
+                      { key: 'pastConditions', label: t('symptomChecker.fields.pastConditions', 'Past Medical Conditions'), placeholder: 'e.g. Hypertension, Diabetes...' },
+                      { key: 'currentMedications', label: t('symptomChecker.fields.currentMedications', 'Current Medications'), placeholder: 'e.g. Metformin 500mg...' },
+                      { key: 'familyHistory', label: t('symptomChecker.fields.familyHistory', 'Family Medical History'), placeholder: 'e.g. Father has heart disease...' },
+                      { key: 'allergies', label: t('symptomChecker.fields.allergies', 'Known Allergies'), placeholder: 'e.g. Penicillin, NSAIDs...' },
                     ].map(({ key, label, placeholder }) => (
                       <div key={key}>
                         <label className="block text-xs font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>
-                          {label} <span style={{ color: 'var(--text-tertiary)' }}>(optional)</span>
+                          {label} <span style={{ color: 'var(--text-tertiary)' }}>({t('symptomChecker.optional', 'optional')})</span>
                         </label>
                         <textarea
                           value={form[key]}
@@ -278,11 +289,10 @@ export default function SymptomCheckerPage() {
               {step === 5 && results && (
                 <motion.div key="results" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-black" style={{ color: 'var(--text-primary)' }}>AI Assessment Results</h2>
-                    <span className="badge badge-blue text-[10px]">Powered by Gemini</span>
+                    <h2 className="text-xl font-black" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.results.title', 'AI Assessment Results')}</h2>
+                    <span className="badge badge-blue text-[10px]">{t('symptomChecker.results.poweredBy', 'Powered by Gemini')}</span>
                   </div>
 
-                  {/* Urgency Banner */}
                   {results.urgency && (() => {
                     const u = URGENCY_STYLES[results.urgency.level] || URGENCY_STYLES.low;
                     return (
@@ -296,8 +306,7 @@ export default function SymptomCheckerPage() {
                     );
                   })()}
 
-                  {/* Possible Conditions */}
-                  <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Possible Conditions</h3>
+                  <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.results.possibleConditions', 'Possible Conditions')}</h3>
                   <div className="space-y-3 mb-6">
                     {results.possibleConditions?.map((c, i) => (
                       <div key={i} className="p-4 rounded-xl" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-primary)' }}>
@@ -315,46 +324,43 @@ export default function SymptomCheckerPage() {
                     ))}
                   </div>
 
-                  {/* Specialist + Tests */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     {results.recommendedSpecialist && (
                       <div className="p-4 rounded-xl" style={{ background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)' }}>
-                        <p className="text-xs font-bold text-blue-400 mb-1">Recommended Specialist</p>
+                        <p className="text-xs font-bold text-blue-400 mb-1">{t('symptomChecker.results.specialist', 'Recommended Specialist')}</p>
                         <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{results.recommendedSpecialist.type}</p>
                         <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{results.recommendedSpecialist.reason}</p>
                       </div>
                     )}
                     {results.suggestedTests && (
                       <div className="p-4 rounded-xl" style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)' }}>
-                        <p className="text-xs font-bold text-emerald-400 mb-2">Suggested Tests</p>
-                        {results.suggestedTests.map(t => (
-                          <p key={t} className="text-xs" style={{ color: 'var(--text-secondary)' }}>• {t}</p>
+                        <p className="text-xs font-bold text-emerald-400 mb-2">{t('symptomChecker.results.tests', 'Suggested Tests')}</p>
+                        {results.suggestedTests.map(test => (
+                          <p key={test} className="text-xs" style={{ color: 'var(--text-secondary)' }}>• {test}</p>
                         ))}
                       </div>
                     )}
                   </div>
 
-                  {/* Lifestyle Advice */}
                   {results.lifestyleAdvice && (
                     <div className="mb-6">
-                      <p className="text-xs font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Lifestyle Advice</p>
+                      <p className="text-xs font-bold mb-2" style={{ color: 'var(--text-primary)' }}>{t('symptomChecker.results.lifestyle', 'Lifestyle Advice')}</p>
                       {results.lifestyleAdvice.map(a => (
                         <p key={a} className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>✓ {a}</p>
                       ))}
                     </div>
                   )}
 
-                  {/* Disclaimer */}
                   <div className="p-3 rounded-xl text-xs" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-tertiary)' }}>
                     ⚠️ {results.disclaimer}
                   </div>
 
                   <div className="flex gap-3 mt-6">
                     <button onClick={() => { setStep(0); setResults(null); }} className="btn btn-secondary btn-md flex-1">
-                      New Check
+                      {t('symptomChecker.newCheck', 'New Check')}
                     </button>
-                    <button onClick={() => toast.success('Report saved to Health Records')} className="btn btn-primary btn-md flex-1">
-                      <Bookmark className="w-4 h-4" /> Save Report
+                    <button onClick={() => toast.success(t('symptomChecker.reportSaved', 'Report saved to Health Records'))} className="btn btn-primary btn-md flex-1">
+                      <Bookmark className="w-4 h-4" /> {t('symptomChecker.saveReport', 'Save Report')}
                     </button>
                   </div>
                 </motion.div>
@@ -366,22 +372,22 @@ export default function SymptomCheckerPage() {
               <div className="flex gap-3 mt-8">
                 {step > 0 && (
                   <button onClick={() => setStep(s => s - 1)} className="btn btn-secondary btn-md flex-1">
-                    <ChevronLeft className="w-4 h-4" /> Back
+                    <ChevronLeft className="w-4 h-4" /> {t('symptomChecker.back', 'Back')}
                   </button>
                 )}
                 {step < 4 ? (
                   <button onClick={() => setStep(s => s + 1)} className="btn btn-primary btn-md flex-1">
-                    Continue <ChevronRight className="w-4 h-4" />
+                    {t('symptomChecker.continue', 'Continue')} <ChevronRight className="w-4 h-4" />
                   </button>
                 ) : (
                   <button onClick={analyze} disabled={loading} className="btn btn-primary btn-md flex-1">
                     {loading ? (
                       <span className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Analyzing with AI...
+                        {t('symptomChecker.analyzingWith', 'Analyzing with AI...')}
                       </span>
                     ) : (
-                      <><Brain className="w-4 h-4" /> Analyze Symptoms</>
+                      <><Brain className="w-4 h-4" /> {t('symptomChecker.analyze', 'Analyze Symptoms')}</>
                     )}
                   </button>
                 )}

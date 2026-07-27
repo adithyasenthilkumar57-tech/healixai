@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 const SUGGESTIONS = [
   'What are the symptoms of diabetes?',
@@ -47,7 +48,8 @@ function formatTime(date) {
 }
 
 export default function AIAssistantPage() {
-  const [chats, setChats] = useState([{ id: 'chat-1', title: 'New Conversation', messages: [INITIAL_MESSAGE], timestamp: new Date() }]);
+  const { t } = useLanguage();
+  const [chats, setChats] = useState([{ id: 'chat-1', title: t('chatbot.newConversation', 'New Conversation'), messages: [INITIAL_MESSAGE], timestamp: new Date() }]);
   const [activeChatId, setActiveChatId] = useState('chat-1');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -66,7 +68,7 @@ export default function AIAssistantPage() {
 
   const newChat = () => {
     const id = `chat-${Date.now()}`;
-    setChats(prev => [{ id, title: 'New Conversation', messages: [INITIAL_MESSAGE], timestamp: new Date() }, ...prev]);
+    setChats(prev => [{ id, title: t('chatbot.newConversation', 'New Conversation'), messages: [INITIAL_MESSAGE], timestamp: new Date() }, ...prev]);
     setActiveChatId(id);
   };
 
@@ -110,7 +112,7 @@ export default function AIAssistantPage() {
       };
       setChats(prev => prev.map(c => c.id === activeChatId ? { ...c, messages: [...c.messages, aiMsg] } : c));
     } catch {
-      toast.error('Failed to get response. Please check your connection.');
+      toast.error(t('aiAssistant.connectionError', 'Failed to get response. Please check your connection.'));
     } finally {
       setLoading(false);
       inputRef.current?.focus();
@@ -119,7 +121,7 @@ export default function AIAssistantPage() {
 
   const startVoice = () => {
     if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-      toast.error('Voice input not supported in your browser.');
+      toast.error(t('aiAssistant.voiceNotSupported', 'Voice input not supported in your browser.'));
       return;
     }
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;

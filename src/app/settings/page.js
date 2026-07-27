@@ -11,14 +11,15 @@ import Header from '@/components/layout/Header';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from 'next-themes';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
-const SECTIONS = [
-  { id: 'profile', label: 'Profile', icon: User },
-  { id: 'notifications', label: 'Notifications', icon: Bell },
-  { id: 'security', label: 'Security', icon: Shield },
-  { id: 'appearance', label: 'Appearance', icon: Moon },
-  { id: 'language', label: 'Language', icon: Globe },
-  { id: 'privacy', label: 'Privacy & Data', icon: Eye },
+const getSections = (t) => [
+  { id: 'profile', label: t('settings.profile', 'Profile'), icon: User },
+  { id: 'notifications', label: t('settings.notifications', 'Notifications'), icon: Bell },
+  { id: 'security', label: t('settings.security', 'Security'), icon: Shield },
+  { id: 'appearance', label: t('settings.appearance', 'Appearance'), icon: Moon },
+  { id: 'language', label: t('settings.language', 'Language'), icon: Globe },
+  { id: 'privacy', label: t('settings.privacy', 'Privacy & Data'), icon: Eye },
 ];
 
 function Toggle({ checked, onChange, label }) {
@@ -41,6 +42,8 @@ function Toggle({ checked, onChange, label }) {
 }
 
 export default function SettingsPage() {
+  const { t, switchLanguage } = useLanguage();
+  const SECTIONS = getSections(t);
   const [activeSection, setActiveSection] = useState('profile');
   const { user, logout } = useAuth();
   const { theme, setTheme } = useTheme();
@@ -54,7 +57,7 @@ export default function SettingsPage() {
     <div className="min-h-screen" style={{ background: 'var(--bg-secondary)' }}>
       <Header />
       <div className="pt-20 container py-8">
-        <h1 className="text-3xl font-black mb-8" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>Settings</h1>
+        <h1 className="text-3xl font-black mb-8" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>{t('settings.title', 'Settings')}</h1>
         <div className="flex gap-6">
           {/* Sidebar Nav */}
           <aside className="w-52 flex-shrink-0 hidden md:block">
@@ -69,8 +72,8 @@ export default function SettingsPage() {
                 </button>
               ))}
               <div className="pt-4 border-t" style={{ borderColor: 'var(--border-primary)' }}>
-                <button onClick={() => { logout(); toast.success('Logged out'); }} className="sidebar-item w-full text-red-400 hover:bg-red-500/10">
-                  <Trash2 className="w-4 h-4" />Sign Out
+                <button onClick={() => { logout(); toast.success(t('settings.loggedOut', 'Logged out')); }} className="sidebar-item w-full text-red-400 hover:bg-red-500/10">
+                  <Trash2 className="w-4 h-4" />{t('settings.signOut', 'Sign Out')}
                 </button>
               </div>
             </nav>
@@ -81,7 +84,7 @@ export default function SettingsPage() {
             {/* Profile */}
             {activeSection === 'profile' && (
               <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="stat-card">
-                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>Profile Information</h2>
+                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('settings.profileInformation', 'Profile Information')}</h2>
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b" style={{ borderColor: 'var(--border-primary)' }}>
                   <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center text-white text-xl font-black">
                     {user?.firstName?.[0] || 'U'}
@@ -91,7 +94,7 @@ export default function SettingsPage() {
                     <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{user?.email || 'user@healixai.com'}</p>
                     <span className="badge badge-blue text-[10px] mt-1 capitalize">{user?.role || 'patient'}</span>
                   </div>
-                  <button className="btn btn-secondary btn-sm ml-auto">Change Photo</button>
+                  <button className="btn btn-secondary btn-sm ml-auto">{t('settings.changePhoto', 'Change Photo')}</button>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   {[
@@ -114,8 +117,8 @@ export default function SettingsPage() {
                     </div>
                   ))}
                 </div>
-                <button onClick={() => toast.success('Profile updated!')} className="btn btn-primary btn-md mt-6">
-                  <Check className="w-4 h-4" /> Save Changes
+                <button onClick={() => toast.success(t('settings.profileUpdated', 'Profile updated!'))} className="btn btn-primary btn-md mt-6">
+                  <Check className="w-4 h-4" /> {t('settings.saveChanges', 'Save Changes')}
                 </button>
               </motion.div>
             )}
@@ -123,7 +126,7 @@ export default function SettingsPage() {
             {/* Notifications */}
             {activeSection === 'notifications' && (
               <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="stat-card">
-                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>Notification Preferences</h2>
+                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('settings.notificationPreferences', 'Notification Preferences')}</h2>
                 <div className="space-y-4">
                   {[
                     { key: 'appointments', label: 'Appointment reminders (24h, 1h before)' },
@@ -137,8 +140,8 @@ export default function SettingsPage() {
                     </div>
                   ))}
                 </div>
-                <button onClick={() => toast.success('Notification preferences saved!')} className="btn btn-primary btn-md mt-6">
-                  <Check className="w-4 h-4" /> Save Preferences
+                <button onClick={() => toast.success(t('settings.preferencesSaved', 'Notification preferences saved!'))} className="btn btn-primary btn-md mt-6">
+                  <Check className="w-4 h-4" /> {t('settings.savePreferences', 'Save Preferences')}
                 </button>
               </motion.div>
             )}
@@ -216,7 +219,7 @@ export default function SettingsPage() {
             {/* Language */}
             {activeSection === 'language' && (
               <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="stat-card">
-                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>Language & Region</h2>
+                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('settings.languageRegion', 'Language & Region')}</h2>
                 <div className="space-y-2">
                   {[
                     { code: 'en', label: 'English', native: 'English', flag: '🇮🇳' },
@@ -226,7 +229,7 @@ export default function SettingsPage() {
                   ].map(({ code, label, native, flag }) => (
                     <button
                       key={code}
-                      onClick={() => { setLang(code); toast.success(`Language set to ${label}`); }}
+                      onClick={() => { setLang(code); switchLanguage(code); toast.success(`Language set to ${label}`); }}
                       className="w-full flex items-center gap-4 p-4 rounded-xl border transition-all"
                       style={{ background: lang === code ? 'rgba(59,130,246,0.08)' : 'var(--bg-secondary)', borderColor: lang === code ? '#3b82f6' : 'var(--border-primary)' }}
                     >
@@ -245,7 +248,7 @@ export default function SettingsPage() {
             {/* Privacy */}
             {activeSection === 'privacy' && (
               <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="stat-card">
-                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>Privacy & Data</h2>
+                <h2 className="text-lg font-black mb-6" style={{ color: 'var(--text-primary)' }}>{t('settings.privacyData', 'Privacy & Data')}</h2>
                 <div className="space-y-3 mb-6">
                   {[
                     { label: 'Share anonymous usage data to improve HealixAI', checked: true },
@@ -258,13 +261,13 @@ export default function SettingsPage() {
                   ))}
                 </div>
                 <div className="border-t pt-4" style={{ borderColor: 'var(--border-primary)' }}>
-                  <h3 className="text-sm font-semibold mb-3 text-red-400">Danger Zone</h3>
+                  <h3 className="text-sm font-semibold mb-3 text-red-400">{t('settings.dangerZone', 'Danger Zone')}</h3>
                   <div className="flex gap-3">
-                    <button onClick={() => toast.success('Data export requested — you will receive an email')} className="btn btn-secondary btn-sm">
-                      <Download className="w-4 h-4" /> Export My Data
+                    <button onClick={() => toast.success(t('settings.exportRequested', 'Data export requested — you will receive an email'))} className="btn btn-secondary btn-sm">
+                      <Download className="w-4 h-4" /> {t('settings.exportMyData', 'Export My Data')}
                     </button>
-                    <button onClick={() => toast.error('Account deletion is permanent — contact support@healixai.com')} className="btn btn-sm" style={{ background: 'rgba(239,68,68,0.08)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.3)' }}>
-                      <Trash2 className="w-4 h-4" /> Delete Account
+                    <button onClick={() => toast.error(t('settings.deleteAccountHint', 'Account deletion is permanent — contact support@healixai.com'))} className="btn btn-sm" style={{ background: 'rgba(239,68,68,0.08)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.3)' }}>
+                      <Trash2 className="w-4 h-4" /> {t('settings.deleteAccount', 'Delete Account')}
                     </button>
                   </div>
                 </div>

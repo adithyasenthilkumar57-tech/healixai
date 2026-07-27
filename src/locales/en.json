@@ -491,5 +491,34 @@
     "comingSoon": "Coming Soon",
     "new": "New",
     "beta": "Beta"
+  },
+  "settings": {
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "security": "Security",
+    "appearance": "Appearance",
+    "language": "Language",
+    "privacy": "Privacy & Data",
+    "loggedOut": "Logged out",
+    "profileInformation": "Profile Information",
+    "changePhoto": "Change Photo",
+    "saveChanges": "Save Changes",
+    "profileUpdated": "Profile updated!",
+    "notificationPreferences": "Notification Preferences",
+    "savePreferences": "Save Preferences",
+    "preferencesSaved": "Notification preferences saved!",
+    "languageRegion": "Language & Region",
+    "privacyData": "Privacy & Data",
+    "dangerZone": "Danger Zone",
+    "exportMyData": "Export My Data",
+    "exportRequested": "Data export requested - you will receive an email",
+    "deleteAccount": "Delete Account",
+    "deleteAccountHint": "Account deletion is permanent - contact support@healixai.com",
+    "signOut": "Sign Out",
+    "signedOut": "Logged out"
+  },
+  "healthRecords": {
+    "openingViewer": "Opening report viewer",
+    "uploadFormats": "PDF, PNG, JPG supported"
   }
 }

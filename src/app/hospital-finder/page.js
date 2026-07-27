@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Phone, Navigation, Star, Clock, Filter, Building2, Beaker, Pill } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HOSPITALS = [
   { id: 1, name: 'Apollo Hospitals', type: 'hospital', specialties: ['Cardiology', 'Neurology', 'Oncology'], rating: 4.8, dist: 1.2, phone: '044-28296000', address: 'Greams Road, Chennai', open24: true, govt: false, beds: 450, lat: 13.0600, lng: 80.2700 },
@@ -33,6 +34,7 @@ const TYPE_COLORS = {
 };
 
 export default function HospitalFinderPage() {
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
   const [selected, setSelected] = useState(null);
@@ -47,6 +49,14 @@ export default function HospitalFinderPage() {
     return matchSearch && matchType && matchGovt && match24;
   }).sort((a, b) => a.dist - b.dist);
 
+  const filterLabels = {
+    all: t('hospitalFinder.filters.all', 'All'),
+    hospital: t('hospitalFinder.filters.hospitals', 'Hospitals'),
+    clinic: t('hospitalFinder.filters.clinics', 'Clinics'),
+    lab: t('hospitalFinder.filters.labs', 'Labs'),
+    pharmacy: t('hospitalFinder.filters.pharmacies', 'Pharmacies'),
+  };
+
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
       <Header />
@@ -55,9 +65,9 @@ export default function HospitalFinderPage() {
         <div className="py-10" style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04))' }}>
           <div className="container">
             <h1 className="text-4xl font-black mb-3" style={{ fontFamily: 'var(--font-poppins)', color: 'var(--text-primary)' }}>
-              Find Hospitals & Clinics
+              {t('hospitalFinder.title', 'Find Hospitals & Clinics')}
             </h1>
-            <p className="text-lg mb-6" style={{ color: 'var(--text-secondary)' }}>Locate nearby healthcare facilities with ratings and directions.</p>
+            <p className="text-lg mb-6" style={{ color: 'var(--text-secondary)' }}>{t('hospitalFinder.subtitle', 'Locate nearby healthcare facilities with ratings and directions.')}</p>
 
             {/* Search Bar */}
             <div className="relative max-w-2xl">
@@ -65,7 +75,7 @@ export default function HospitalFinderPage() {
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search hospitals, specialties, labs..."
+                placeholder={t('hospitalFinder.searchPlaceholder', 'Search hospitals, specialties, labs...')}
                 className="input-base pl-12 py-4 text-base"
               />
             </div>
@@ -83,7 +93,7 @@ export default function HospitalFinderPage() {
                     border: `1px solid ${filter === f ? '#3b82f6' : 'var(--border-primary)'}`,
                   }}
                 >
-                  {f}
+                  {filterLabels[f] || f}
                 </button>
               ))}
               <button
@@ -95,7 +105,7 @@ export default function HospitalFinderPage() {
                   border: `1px solid ${showGovt ? '#10b981' : 'var(--border-primary)'}`,
                 }}
               >
-                Government
+                {t('hospitalFinder.filters.government', 'Government')}
               </button>
               <button
                 onClick={() => setShow24(!show24)}
@@ -106,7 +116,7 @@ export default function HospitalFinderPage() {
                   border: `1px solid ${show24 ? '#f59e0b' : 'var(--border-primary)'}`,
                 }}
               >
-                <Clock className="w-3.5 h-3.5" /> Open 24/7
+                <Clock className="w-3.5 h-3.5" /> {t('hospitalFinder.filters.open24', 'Open 24/7')}
               </button>
             </div>
           </div>
@@ -154,7 +164,7 @@ export default function HospitalFinderPage() {
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 text-center">
                   <p className="text-xs px-3 py-1.5 rounded-lg inline-block" style={{ background: 'rgba(15,23,42,0.8)', color: '#94a3b8' }}>
-                    📍 Showing hospitals near Chennai, Tamil Nadu
+                    {t('hospitalFinder.showingNear', '📍 Showing hospitals near Chennai, Tamil Nadu')}
                   </p>
                 </div>
               </div>
@@ -163,7 +173,7 @@ export default function HospitalFinderPage() {
             {/* List */}
             <div className="order-1 lg:order-2 space-y-3 overflow-y-auto" style={{ maxHeight: '600px' }}>
               <p className="text-sm font-medium mb-4" style={{ color: 'var(--text-secondary)' }}>
-                Found <strong style={{ color: 'var(--text-primary)' }}>{filtered.length}</strong> results
+                {t('hospitalFinder.found', 'Found')} <strong style={{ color: 'var(--text-primary)' }}>{filtered.length}</strong> {t('hospitalFinder.results', 'results')}
               </p>
               {filtered.map((h, i) => {
                 const Icon = TYPE_ICONS[h.type] || Building2;
@@ -196,32 +206,32 @@ export default function HospitalFinderPage() {
                               <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
                               <span className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>{h.rating}</span>
                             </div>
-                            <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{h.dist} km</p>
+                            <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{h.dist} {t('hospitalFinder.distance', 'km')}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2 mt-2 flex-wrap">
-                          {h.open24 && <span className="badge badge-emerald text-[10px]">24/7</span>}
-                          {h.govt && <span className="badge badge-blue text-[10px]">Government</span>}
-                          {h.beds > 0 && <span className="badge badge-gray text-[10px]">{h.beds} beds</span>}
+                          {h.open24 && <span className="badge badge-emerald text-[10px]">{t('hospitalFinder.open24Label', '24/7')}</span>}
+                          {h.govt && <span className="badge badge-blue text-[10px]">{t('hospitalFinder.governmentLabel', 'Government')}</span>}
+                          {h.beds > 0 && <span className="badge badge-gray text-[10px]">{h.beds} {t('hospitalFinder.beds', 'beds')}</span>}
                           {h.specialties.slice(0, 2).map(s => (
                             <span key={s} className="badge badge-gray text-[10px]">{s}</span>
                           ))}
                         </div>
                         <div className="flex gap-2 mt-3">
                           <a href={`tel:${h.phone}`} className="btn btn-sm flex-1" style={{ background: `${color}12`, color, border: `1px solid ${color}30` }}>
-                            <Phone className="w-3 h-3" /> Call
+                            <Phone className="w-3 h-3" /> {t('hospitalFinder.call', 'Call')}
                           </a>
                           <button
                             onClick={e => { e.stopPropagation(); window.open(`https://www.google.com/maps/search/${encodeURIComponent(h.name + ' ' + h.address)}`, '_blank'); }}
                             className="btn btn-secondary btn-sm flex-1"
                           >
-                            <Navigation className="w-3 h-3" /> Directions
+                            <Navigation className="w-3 h-3" /> {t('hospitalFinder.directions', 'Directions')}
                           </button>
                           <button
-                            onClick={e => { e.stopPropagation(); toast.success(`Appointment booking for ${h.name} — coming soon!`); }}
+                            onClick={e => { e.stopPropagation(); toast.success(t('hospitalFinder.bookingComingSoon', `Appointment booking for ${h.name} — coming soon!`)); }}
                             className="btn btn-primary btn-sm flex-1"
                           >
-                            Book
+                            {t('hospitalFinder.book', 'Book')}
                           </button>
                         </div>
                       </div>
