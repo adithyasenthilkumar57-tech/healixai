@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
+import OfflineEmergencyQRCard from '@/components/location/OfflineEmergencyQRCard';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import {
@@ -339,25 +340,25 @@ export default function PatientDashboard() {
             {/* AI Recommendations */}
             <div className="stat-card">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>AI Recommendations</p>
-                <span className="badge badge-blue text-[10px]">CuraAI</span>
+                <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{t('dashboard.patient.recommendations', 'AI Health Recommendations')}</p>
+                <span className="badge badge-purple text-[10px]">CuraAI Powered</span>
               </div>
-              <div className="space-y-3">
-                {AI_RECOMMENDATIONS.map(({ icon: Icon, text, color, priority }) => (
-                  <motion.div
-                    key={text}
-                    whileHover={{ x: 3 }}
-                    className="flex items-start gap-3 p-3 rounded-xl cursor-pointer"
-                    style={{ background: `${color}08`, border: `1px solid ${color}20` }}
-                  >
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${color}20` }}>
-                      <Icon className="w-3.5 h-3.5" style={{ color }} />
+              <div className="space-y-3 mb-4">
+                {AI_RECOMMENDATIONS.map(({ icon: Icon, text, color, priority }, i) => (
+                  <div key={i} className="flex items-start gap-3 p-3 rounded-xl" style={{ background: 'var(--bg-secondary)' }}>
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: `${color}15` }}>
+                      <Icon className="w-4 h-4" style={{ color }} />
                     </div>
-                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{text}</p>
-                  </motion.div>
+                    <div className="flex-1">
+                      <p className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{text}</p>
+                      <span className={`badge text-[9px] mt-1 ${priority === 'high' ? 'badge-red' : priority === 'medium' ? 'badge-yellow' : 'badge-blue'}`}>
+                        {priority} priority
+                      </span>
+                    </div>
+                  </div>
                 ))}
               </div>
-              <Link href="/ai-assistant" className="btn btn-primary btn-sm w-full mt-3">
+              <Link href="/ai-assistant" className="btn btn-primary btn-sm w-full">
                 <MessageSquare className="w-4 h-4" /> Ask CuraAI
               </Link>
             </div>

@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sun, Moon, Globe, Bell, User, ChevronDown, Menu, X,
   Heart, Activity, Stethoscope, AlertTriangle, Building2,
-  LayoutDashboard, LogOut, Settings, Shield, MessageSquare, Languages
+  LayoutDashboard, LogOut, Settings, Shield, MessageSquare, Languages, Compass
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
@@ -21,6 +21,7 @@ const NAV_ITEMS = [
   { href: '/symptom-checker', key: 'nav.symptomChecker', defaultLabel: 'Symptom Checker', icon: Stethoscope },
   { href: '/emergency', key: 'nav.emergency', defaultLabel: 'Emergency', icon: AlertTriangle, emergency: true },
   { href: '/hospital-finder', key: 'nav.hospitals', defaultLabel: 'Hospitals', icon: Building2 },
+  { href: '/healthcare-coverage', key: 'nav.coverage', defaultLabel: 'Coverage', icon: Compass },
   { href: '/dashboard/patient', key: 'nav.dashboard', defaultLabel: 'Dashboard', icon: LayoutDashboard, authRequired: true },
 ];
 

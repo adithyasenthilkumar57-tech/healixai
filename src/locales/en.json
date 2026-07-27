@@ -13,7 +13,8 @@
     "register": "Register",
     "logout": "Logout",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "coverage": "Coverage Map"
   },
   "hero": {
     "badge": "AI-Powered Healthcare",
@@ -520,5 +521,18 @@
   "healthRecords": {
     "openingViewer": "Opening report viewer",
     "uploadFormats": "PDF, PNG, JPG supported"
+  },
+  "location": {
+    "onboardingBadge": "Smart Location & Healthcare Discovery",
+    "welcomeTitle": "Welcome to HealixAI",
+    "welcomeSubtitle": "Let us personalize your healthcare experience by identifying your state, district, and nearby hospital network.",
+    "tabGps": "📍 Use GPS",
+    "tabManual": "Manual Select",
+    "tabPincode": "By Pincode",
+    "gpsTitle": "Auto-Detect via Device GPS",
+    "gpsDesc": "We will request browser location permission to automatically map nearby hospitals, emergency centers, and pharmacies.",
+    "detecting": "Detecting your coordinates...",
+    "detectButton": "Use My Current Location (Recommended)",
+    "privacyNote": "Your exact location data is kept private & local to your device."
   }
 }
