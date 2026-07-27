@@ -1,0 +1,495 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "aiAssistant": "AI Assistant",
+    "symptomChecker": "Symptom Checker",
+    "emergency": "Emergency",
+    "hospitals": "Hospitals",
+    "dashboard": "Dashboard",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "hero": {
+    "badge": "AI-Powered Healthcare",
+    "title": "AI-Powered Healthcare",
+    "titleHighlight": "for Everyone",
+    "subtitle": "Helping patients understand their health, detect risks early, and access trusted healthcare through intelligent AI assistance.",
+    "cta1": "Get Started Free",
+    "cta2": "Talk to CuraAI",
+    "cta3": "Watch Demo",
+    "cards": {
+      "heartRate": "Heart Rate",
+      "bpm": "bpm",
+      "normal": "Normal",
+      "bloodPressure": "Blood Pressure",
+      "aiDiagnosis": "AI Analysis",
+      "analyzing": "Analyzing symptoms...",
+      "aiReady": "AI Ready"
+    }
+  },
+  "stats": {
+    "patients": "Patients Helped",
+    "doctors": "Verified Doctors",
+    "hospitals": "Partner Hospitals",
+    "uptime": "Platform Uptime",
+    "satisfaction": "Patient Satisfaction"
+  },
+  "features": {
+    "title": "Everything You Need for",
+    "titleHighlight": "Complete Healthcare",
+    "subtitle": "A comprehensive suite of AI-powered tools designed to make healthcare accessible, intelligent, and personal.",
+    "chatbot": {
+      "title": "AI Medical Chatbot",
+      "desc": "CuraAI provides intelligent, compassionate healthcare guidance 24/7 in English and Tamil."
+    },
+    "symptomChecker": {
+      "title": "Symptom Checker",
+      "desc": "Advanced AI symptom analysis that estimates conditions, urgency, and specialist recommendations."
+    },
+    "reportAnalyzer": {
+      "title": "Report Analyzer",
+      "desc": "Upload lab reports and scans. AI extracts values, explains results in plain language."
+    },
+    "medicineReminder": {
+      "title": "Medicine Reminder",
+      "desc": "Never miss a dose with smart reminders, refill alerts, and medicine history tracking."
+    },
+    "emergency": {
+      "title": "Emergency Assistant",
+      "desc": "One-tap SOS with GPS location sharing, nearest hospital navigation, and emergency contacts."
+    },
+    "hospitalFinder": {
+      "title": "Hospital Finder",
+      "desc": "Find nearby hospitals, clinics, labs, and pharmacies with filters, ratings, and navigation."
+    },
+    "healthDashboard": {
+      "title": "Health Dashboard",
+      "desc": "Beautiful charts tracking heart rate, BMI, sugar, BP, sleep, water intake, and mood."
+    },
+    "riskPrediction": {
+      "title": "Risk Prediction",
+      "desc": "AI predicts risk for diabetes, heart disease, hypertension, and more with personalized advice."
+    },
+    "mentalHealth": {
+      "title": "Mental Wellness",
+      "desc": "Mood tracker, breathing exercises, daily journal, and crisis support resources."
+    },
+    "healthRecords": {
+      "title": "Health Records",
+      "desc": "Encrypted, organized storage for all your medical documents with timeline view."
+    },
+    "appointments": {
+      "title": "Appointments",
+      "desc": "Book, reschedule, or cancel appointments with seamless calendar integration."
+    },
+    "multilingual": {
+      "title": "Multilingual Support",
+      "desc": "Full English and Tamil support across every feature — switch instantly without reload."
+    }
+  },
+  "howItWorks": {
+    "title": "How HealixAI Works",
+    "subtitle": "Getting started is simple. Three steps to better healthcare.",
+    "step1": {
+      "title": "Create Your Profile",
+      "desc": "Sign up, enter your health information, and set your preferences."
+    },
+    "step2": {
+      "title": "Talk to CuraAI",
+      "desc": "Describe your symptoms or questions. Our AI analyzes and guides you."
+    },
+    "step3": {
+      "title": "Get Insights & Act",
+      "desc": "Receive personalized recommendations, book doctors, and track your health."
+    }
+  },
+  "testimonials": {
+    "title": "Trusted by Thousands",
+    "subtitle": "Real experiences from patients, doctors, and healthcare professionals.",
+    "items": [
+      {
+        "name": "Priya Rajan",
+        "role": "Patient, Chennai",
+        "text": "CuraAI explained my lab report in Tamil clearly. I finally understood my test results without needing a translator.",
+        "rating": 5
+      },
+      {
+        "name": "Dr. Karthik Sundaram",
+        "role": "Cardiologist, Apollo Hospitals",
+        "text": "The AI risk prediction tool helps me flag high-risk patients early. It's like having an intelligent assistant.",
+        "rating": 5
+      },
+      {
+        "name": "Meena Krishnamurthy",
+        "role": "Patient, Coimbatore",
+        "text": "The medicine reminder saved me from missing my BP medication for weeks. My health has improved significantly.",
+        "rating": 5
+      },
+      {
+        "name": "Dr. Arjun Patel",
+        "role": "General Physician, Bangalore",
+        "text": "HealixAI's symptom checker is impressive. Patients come in better prepared, making consultations more efficient.",
+        "rating": 5
+      }
+    ]
+  },
+  "security": {
+    "title": "Your Health Data is",
+    "titleHighlight": "Completely Safe",
+    "subtitle": "Built with enterprise-grade security and HIPAA-inspired privacy principles.",
+    "features": {
+      "encryption": "End-to-End Encryption",
+      "encryptionDesc": "All your medical data is encrypted at rest and in transit.",
+      "hipaa": "HIPAA-Inspired Privacy",
+      "hipaaDesc": "Built following healthcare data privacy best practices.",
+      "access": "Role-Based Access",
+      "accessDesc": "Only authorized users can access your health information.",
+      "audit": "Audit Logs",
+      "auditDesc": "Every access to your data is logged and traceable."
+    }
+  },
+  "cta": {
+    "title": "Start Your Health Journey Today",
+    "subtitle": "Join thousands of patients and healthcare professionals using HealixAI for smarter, faster, and more personalized healthcare.",
+    "button1": "Get Started Free",
+    "button2": "Book a Demo"
+  },
+  "footer": {
+    "tagline": "AI-powered healthcare for everyone. Available in English and Tamil.",
+    "company": {
+      "title": "Company",
+      "about": "About Us",
+      "careers": "Careers",
+      "blog": "Blog",
+      "press": "Press"
+    },
+    "product": {
+      "title": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "security": "Security",
+      "enterprise": "Enterprise"
+    },
+    "support": {
+      "title": "Support",
+      "help": "Help Center",
+      "contact": "Contact Us",
+      "faq": "FAQ",
+      "status": "System Status"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "hipaa": "HIPAA Notice"
+    },
+    "emergency": "Emergency: 112",
+    "disclaimer": "HealixAI provides educational health information only and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a licensed healthcare professional.",
+    "rights": "All rights reserved.",
+    "newsletter": {
+      "title": "Stay updated on health AI",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your HealixAI account",
+      "email": "Email Address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password?",
+      "button": "Sign In",
+      "orContinue": "Or continue with",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up",
+      "google": "Continue with Google",
+      "microsoft": "Continue with Microsoft",
+      "apple": "Continue with Apple"
+    },
+    "register": {
+      "title": "Join HealixAI",
+      "subtitle": "Create your account and start your health journey",
+      "selectRole": "I am a",
+      "patient": "Patient",
+      "doctor": "Healthcare Professional",
+      "hospital": "Hospital / Clinic",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "agreeTerms": "I agree to the Terms of Service and Privacy Policy",
+      "button": "Create Account",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "steps": {
+        "role": "Role",
+        "personal": "Personal Info",
+        "medical": "Medical Info",
+        "verify": "Verify"
+      }
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalidEmail": "Enter a valid email address",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordMatch": "Passwords do not match",
+      "invalidPhone": "Enter a valid phone number"
+    }
+  },
+  "dashboard": {
+    "patient": {
+      "title": "My Health Dashboard",
+      "greeting": "Good morning",
+      "healthScore": "Health Score",
+      "appointments": "Upcoming Appointments",
+      "medicines": "Today's Medicines",
+      "reports": "Recent Reports",
+      "vitals": "Vitals",
+      "bmi": "BMI",
+      "water": "Water Intake",
+      "steps": "Steps Today",
+      "sleep": "Sleep",
+      "mood": "Mood",
+      "noAppointments": "No upcoming appointments",
+      "bookNow": "Book Now",
+      "emergency": "Emergency SOS",
+      "chatCura": "Chat with CuraAI",
+      "recommendations": "AI Recommendations",
+      "nearbyHospitals": "Nearby Hospitals"
+    },
+    "doctor": {
+      "title": "Doctor Dashboard",
+      "patients": "My Patients",
+      "appointments": "Today's Appointments",
+      "consultations": "Recent Consultations",
+      "analytics": "Analytics"
+    },
+    "hospital": {
+      "title": "Hospital Dashboard",
+      "bedAvailability": "Bed Availability",
+      "patientQueue": "Patient Queue",
+      "emergencyCases": "Emergency Cases",
+      "doctors": "On-Duty Doctors"
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "totalUsers": "Total Users",
+      "totalHospitals": "Hospitals",
+      "totalDoctors": "Doctors",
+      "systemHealth": "System Health"
+    }
+  },
+  "chatbot": {
+    "title": "CuraAI",
+    "subtitle": "Your AI Health Assistant",
+    "placeholder": "Ask me anything about your health...",
+    "send": "Send",
+    "thinking": "CuraAI is thinking...",
+    "disclaimer": "CuraAI provides educational information only. Always consult a licensed healthcare professional for medical advice.",
+    "emergency": {
+      "title": "⚠️ Emergency Detected",
+      "message": "This sounds like a medical emergency. Please call 112 immediately or go to the nearest emergency room.",
+      "call": "Call 112"
+    },
+    "suggestions": {
+      "1": "What are the symptoms of diabetes?",
+      "2": "How can I lower my blood pressure?",
+      "3": "Explain my cholesterol results",
+      "4": "Tips for better sleep"
+    },
+    "new": "New Chat",
+    "history": "Chat History",
+    "export": "Export Chat",
+    "voice": "Voice Input"
+  },
+  "symptomChecker": {
+    "title": "AI Symptom Checker",
+    "subtitle": "Describe your symptoms for an intelligent health assessment",
+    "disclaimer": "This tool provides educational information only. It is not a diagnosis. Always consult a doctor.",
+    "steps": {
+      "basicInfo": "Basic Info",
+      "vitals": "Vitals",
+      "symptoms": "Symptoms",
+      "lifestyle": "Lifestyle",
+      "history": "Medical History",
+      "results": "AI Results"
+    },
+    "fields": {
+      "age": "Age",
+      "gender": "Gender",
+      "height": "Height (cm)",
+      "weight": "Weight (kg)",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "bloodPressure": "Blood Pressure",
+      "sugarLevel": "Blood Sugar Level",
+      "pulse": "Pulse Rate",
+      "symptoms": "Select Your Symptoms",
+      "duration": "Duration of Symptoms",
+      "painLevel": "Pain Level (0-10)",
+      "smoking": "Do you smoke?",
+      "alcohol": "Alcohol consumption",
+      "sleepHours": "Sleep hours per night",
+      "stressLevel": "Stress Level",
+      "pastConditions": "Past Medical Conditions",
+      "currentMedications": "Current Medications",
+      "familyHistory": "Family Medical History",
+      "allergies": "Known Allergies"
+    },
+    "analyze": "Analyze Symptoms",
+    "analyzing": "AI is analyzing your symptoms...",
+    "results": {
+      "title": "AI Assessment Results",
+      "possibleConditions": "Possible Conditions",
+      "urgency": "Urgency Level",
+      "specialist": "Recommended Specialist",
+      "tests": "Suggested Tests",
+      "lifestyle": "Lifestyle Advice",
+      "exportPDF": "Export as PDF",
+      "saveReport": "Save Report",
+      "bookDoctor": "Book a Doctor"
+    }
+  },
+  "emergency": {
+    "title": "Emergency SOS",
+    "subtitle": "Tap the button below for immediate emergency assistance",
+    "sos": "SOS",
+    "sosActive": "SOS Active",
+    "locating": "Locating you...",
+    "nearbyHospitals": "Nearby Emergency Hospitals",
+    "emergencyContacts": "Your Emergency Contacts",
+    "medicalProfile": "Medical Profile",
+    "bloodGroup": "Blood Group",
+    "allergies": "Allergies",
+    "currentMeds": "Current Medications",
+    "conditions": "Medical Conditions",
+    "call112": "Call 112",
+    "callAmbulance": "Call Ambulance",
+    "shareLocation": "Share Location",
+    "qrCode": "Emergency QR Code",
+    "qrDesc": "Show this QR code to emergency responders for instant medical profile access"
+  },
+  "hospitalFinder": {
+    "title": "Find Hospitals & Clinics",
+    "subtitle": "Locate nearby healthcare facilities",
+    "searchPlaceholder": "Search hospitals, clinics, labs...",
+    "filters": {
+      "all": "All",
+      "hospitals": "Hospitals",
+      "clinics": "Clinics",
+      "labs": "Labs",
+      "pharmacies": "Pharmacies",
+      "government": "Government",
+      "private": "Private",
+      "open24": "Open 24/7"
+    },
+    "distance": "km away",
+    "call": "Call",
+    "directions": "Get Directions",
+    "bookAppointment": "Book Appointment",
+    "rating": "Rating",
+    "beds": "Available Beds"
+  },
+  "medicine": {
+    "title": "Medicine Reminders",
+    "subtitle": "Never miss a dose",
+    "addMedicine": "Add Medicine",
+    "fields": {
+      "name": "Medicine Name",
+      "dosage": "Dosage",
+      "frequency": "Frequency",
+      "time": "Time(s)",
+      "duration": "Duration",
+      "instructions": "Special Instructions"
+    },
+    "times": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "night": "Night"
+    },
+    "status": {
+      "taken": "Taken",
+      "missed": "Missed",
+      "upcoming": "Upcoming"
+    },
+    "refillAlert": "Refill needed soon",
+    "history": "Adherence History",
+    "streak": "Day Streak"
+  },
+  "mentalHealth": {
+    "title": "Mental Wellness",
+    "subtitle": "Your mental health matters. We're here to help.",
+    "moodTracker": {
+      "title": "How are you feeling today?",
+      "moods": {
+        "great": "Great",
+        "good": "Good",
+        "okay": "Okay",
+        "low": "Low",
+        "struggling": "Struggling"
+      }
+    },
+    "breathing": {
+      "title": "Breathing Exercise",
+      "inhale": "Inhale",
+      "hold": "Hold",
+      "exhale": "Exhale",
+      "start": "Start",
+      "stop": "Stop"
+    },
+    "journal": {
+      "title": "Daily Journal",
+      "placeholder": "Write your thoughts here...",
+      "save": "Save Entry"
+    },
+    "crisis": {
+      "title": "Need Immediate Help?",
+      "message": "You are not alone. Reach out to a mental health professional.",
+      "iCall": "iCall Helpline: 9152987821",
+      "vandrevala": "Vandrevala Foundation: 1860-2662-345"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "success": "Success!",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "search": "Search",
+    "filter": "Filter",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "of": "of",
+    "required": "Required",
+    "optional": "Optional",
+    "comingSoon": "Coming Soon",
+    "new": "New",
+    "beta": "Beta"
+  }
+}

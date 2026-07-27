@@ -1,0 +1,97 @@
+/* ══════════════════════════════════════════════════
+   HealixAI — Theme Variables & Color Palette
+   src/css/variables.css
+   ══════════════════════════════════════════════════ */
+
+/* ─── CSS Reset ──────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Dark Theme (default) ───────────────────────── */
+:root,
+[data-theme="dark"],
+.dark {
+  --bg-primary:      #040711;
+  --bg-secondary:    #0a0f22;
+  --bg-tertiary:     #10172e;
+  --bg-card:         #151f3b;
+  --bg-glass:        rgba(21, 31, 59, 0.85);
+  --bg-glass-border: rgba(99, 102, 241, 0.18);
+
+  --text-primary:    #f1f5f9;
+  --text-secondary:  #94a3b8;
+  --text-tertiary:   #64748b;
+  --text-inverse:    #040711;
+
+  --border-primary:   rgba(255, 255, 255, 0.08);
+  --border-secondary: rgba(255, 255, 255, 0.04);
+
+  /* Brand Colors */
+  --accent-blue:    #3b82f6;
+  --accent-purple:  #8b5cf6;
+  --accent-cyan:    #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-rose:    #f43f5e;
+  --accent-amber:   #f59e0b;
+
+  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+  --gradient-hero:    linear-gradient(135deg, #09132e 0%, #1e1b4b 50%, #06394c 100%);
+  --gradient-card:    linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.12) 100%);
+
+  /* Shadows & Glows */
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-xl:   0 20px 60px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 32px rgba(59, 130, 246, 0.3);
+  --shadow-glow-purple: 0 0 32px rgba(139, 92, 246, 0.25);
+
+  /* Input Variables */
+  --input-bg:     rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.12);
+  --input-focus:  rgba(59, 130, 246, 0.5);
+}
+
+/* ─── Light Theme ─────────────────────────────────── */
+[data-theme="light"],
+.light {
+  --bg-primary:      #f0f4ff;
+  --bg-secondary:    #e8effc;
+  --bg-tertiary:     #dde7f9;
+  --bg-card:         #ffffff;
+  --bg-glass:        rgba(255, 255, 255, 0.8);
+  --bg-glass-border: rgba(0, 0, 0, 0.06);
+
+  --text-primary:    #0f172a;
+  --text-secondary:  #475569;
+  --text-tertiary:   #94a3b8;
+  --text-inverse:    #f0f4ff;
+
+  --border-primary:   rgba(0, 0, 0, 0.08);
+  --border-secondary: rgba(0, 0, 0, 0.04);
+
+  --accent-blue:    #2563eb;
+  --accent-purple:  #7c3aed;
+  --accent-cyan:    #0891b2;
+  --accent-emerald: #059669;
+  --accent-rose:    #e11d48;
+  --accent-amber:   #d97706;
+
+  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #0891b2 100%);
+  --gradient-hero:    linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #cffafe 100%);
+  --gradient-card:    linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(124,58,237,0.08) 100%);
+
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-xl:   0 20px 60px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 32px rgba(37, 99, 235, 0.15);
+  --shadow-glow-purple: 0 0 32px rgba(124, 58, 237, 0.12);
+
+  --input-bg:     rgba(0, 0, 0, 0.03);
+  --input-border: rgba(0, 0, 0, 0.12);
+  --input-focus:  rgba(37, 99, 235, 0.4);
+}
